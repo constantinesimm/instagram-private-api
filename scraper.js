@@ -14,7 +14,7 @@ console.log(USERNAME);
 
       ig.request.setHeaders(JSON.parse(data), USERNAME);
 
-      result = await ig.fbsearch.places('hyd');
+      result = await ig.tag.sections('result','recent');
       //console.log(result)
     } else {
       console.log('not exists');

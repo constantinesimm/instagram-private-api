@@ -1,6 +1,6 @@
 # NodeJS Instagram private API client
 
-  - support authorization header
+  - support authorization header & session reuse
   - 184 version
   - more comming....
 
