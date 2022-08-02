@@ -44,4 +44,16 @@ export class FbsearchRepository extends Repository {
     });
     return body;
   }
+  async topSearch(query: string) {
+    const { body } = await this.client.request.send<FbsearchRepositoryPlacesResponseRootObject>({
+      url: '/api/v1/fbsearch/top_serp/',
+      qs: {
+        timezone_offset: this.client.state.timezoneOffset,
+        count: 30,
+        query,
+        search_surface:"top_serp"
+      },
+    });
+    return body;
+  }
 }
