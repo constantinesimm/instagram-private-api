@@ -3,8 +3,17 @@ import {
   FbsearchRepositoryPlacesResponseRootObject,
   FbsearchRepositoryTopsearchFlatResponseRootObject,
 } from '../responses';
-
+import { Expose } from 'class-transformer';
 export class FbsearchRepository extends Repository {
+  tag: string;
+  ranktoken:string;
+  page:string;
+  @Expose()
+moreAvailable:boolean;
+  set state(body) {
+    this.moreAvailable = body.has_more;
+    this.page = body.page_token;
+  }
   async suggestedSearches(type: 'blended' | 'users' | 'hashtags' | 'places') {
     const { body } = await this.client.request.send({
       url: '/api/v1/fbsearch/suggested_searches/',
@@ -54,6 +63,7 @@ export class FbsearchRepository extends Repository {
         search_surface:"top_serp"
       },
     });
+    this.state=body;
     return body;
   }
 }
