@@ -1,0 +1,16 @@
+node_modules
+.vscode/
+.DS_Store
+npm-debug.log
+tests/tmp/*
+tests/credentials.json
+tests/cookies
+php-*
+sandbox.*
+Untitled*
+.idea
+.env
+dist
+tools/state.json
+bot-agent.js
+cookies
