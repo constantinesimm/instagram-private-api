@@ -54,7 +54,7 @@ moreAvailable:boolean;
     return body;
   }
   async topSearch(query: string) {
-    const { body } = await this.client.request.send<FbsearchRepositoryPlacesResponseRootObject>({
+    const { body } = await this.client.request.send({
       url: '/api/v1/fbsearch/top_serp/',
       qs: {
         timezone_offset: this.client.state.timezoneOffset,
@@ -63,7 +63,6 @@ moreAvailable:boolean;
         search_surface:"top_serp"
       },
     });
-    this.state=body;
     return body;
   }
 }
