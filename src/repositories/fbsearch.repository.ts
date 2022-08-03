@@ -65,7 +65,9 @@ nextMaxId:string;
         timezone_offset: this.client.state.timezoneOffset,
         count: 30,
         query,
-        search_surface:"top_serp"
+        search_surface:"top_serp",
+        max_id:this.nextMaxId,
+        rank_token:this.ranktoken
       },
     });
     this.state=body.media_grid;
