@@ -5,14 +5,18 @@ import {
 } from '../responses';
 import { Expose } from 'class-transformer';
 export class FbsearchRepository extends Repository {
-  tag: string;
+
   ranktoken:string;
   page:string;
   @Expose()
 moreAvailable:boolean;
+@Expose()
+nextMaxId:string;
   set state(body) {
     this.moreAvailable = body.has_more;
     this.page = body.page_token;
+    this.nextMaxId=body.next_max_id;
+    this.ranktoken=body.rank_token;
   }
   async suggestedSearches(type: 'blended' | 'users' | 'hashtags' | 'places') {
     const { body } = await this.client.request.send({
@@ -40,6 +44,7 @@ moreAvailable:boolean;
         context: 'blended',
       },
     });
+
     return body;
   }
   async places(query: string) {
@@ -63,6 +68,7 @@ moreAvailable:boolean;
         search_surface:"top_serp"
       },
     });
-    return body;
+    this.state=body.media_grid;
+    return body.media_grid.sections;
   }
 }
