@@ -256,7 +256,7 @@ export class Request {
       'X-FB-HTTP-Engine': 'Liger',
       Authorization: this.client.state.authorization,
       Host: 'i.instagram.com',
-      'Accept-Encoding': 'zstd, gzip',
+      'Accept-Encoding': 'gzip',
       Connection: 'close',
       'ig-intended-user-id': this.client.state.userId ? this.client.state.userId : 0,
       'ig-u-ds-user-id': this.client.state.userId ? this.client.state.userId : undefined,
