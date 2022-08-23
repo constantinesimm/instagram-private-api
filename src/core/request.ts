@@ -20,6 +20,7 @@ import {
 } from '../errors';
 import { IgResponse } from '../types';
 import JSONbigInt = require('json-bigint');
+import {decompress} from 'fzstd';
 
 const JSONbigString = JSONbigInt({ storeAsString: true });
 
@@ -44,6 +45,28 @@ export class Request {
   constructor(private client: IgApiClient) {}
 
   private static requestTransform(body, response: Response, resolveWithFullResponse) {
+    if (response.headers['content-encoding'] === 'zstd') {
+      /*
+      To Support encoding you have to set rawBody object in 
+      request module
+      request/request.js after line 1126
+      add this code
+      
+      response.rawBody=response.body;
+
+      the code look like this
+        response.body = Buffer.concat(buffers, bufferLength)
+        response.rawBody=response.body;
+      
+      */
+
+         try{
+          
+            //@ts-ignore
+            body=Buffer.from(decompress(Buffer.from(response.rawBody))).toString();
+         }catch(e){}
+}
+
     try {
       // Sometimes we have numbers greater than Number.MAX_SAFE_INTEGER in json response
       // To handle it we just wrap numbers with length > 15 it double quotes to get strings instead
@@ -233,7 +256,7 @@ export class Request {
       'X-FB-HTTP-Engine': 'Liger',
       Authorization: this.client.state.authorization,
       Host: 'i.instagram.com',
-      'Accept-Encoding': 'gzip',
+      'Accept-Encoding': 'zstd, gzip',
       Connection: 'close',
       'ig-intended-user-id': this.client.state.userId ? this.client.state.userId : 0,
       'ig-u-ds-user-id': this.client.state.userId ? this.client.state.userId : undefined,

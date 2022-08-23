@@ -70,7 +70,15 @@ nextMaxId:string;
         rank_token:this.ranktoken
       },
     });
-    this.state=body.media_grid;
-    return body.media_grid.sections;
+    if(body.list){
+      this.state = body;
+      return body.list;
+  }
+  if(body.media_grid){
+      this.state = body.media_grid;
+  }
+
+  return body.media_grid.sections;
+  
   }
 }
