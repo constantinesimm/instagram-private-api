@@ -10,8 +10,8 @@ export class SimulateService extends Repository {
       () => this.client.zr.tokenResult(),
       () => this.client.account.contactPointPrefill('prefill').catch(() => undefined),
       () => this.client.launcher.preLoginSync(),
-      () => this.client.qe.syncLoginExperiments(),
-      () => this.client.attribution.logAttribution(),
+      // () => this.client.qe.syncLoginExperiments(),
+      // () => this.client.attribution.logAttribution(),
       () => this.client.account.getPrefillCandidates().catch(() => undefined),
     ];
   }
@@ -20,8 +20,8 @@ export class SimulateService extends Repository {
     return [
       () => this.client.zr.tokenResult(),
       () => this.client.launcher.postLoginSync(),
-      () => this.client.qe.syncExperiments(),
-      () => this.client.attribution.logAttribution(),
+      // () => this.client.qe.syncExperiments(),
+      // () => this.client.attribution.logAttribution(),
       () => this.client.attribution.logResurrectAttribution(),
       () => this.client.loom.fetchConfig(),
       () => this.client.linkedAccount.getLinkageStatus(),
